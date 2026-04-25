@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const roles = [
@@ -7,6 +7,15 @@ const roles = [
   "React Native Engineer",
   "React.js Developer",
   "Mobile App Developer",
+  "Full Stack Enthusiast",
+];
+
+const roleColors = [
+  "from-indigo-400 to-cyan-400",
+  "from-cyan-400 to-emerald-400",
+  "from-violet-400 to-indigo-400",
+  "from-pink-400 to-violet-400",
+  "from-amber-400 to-orange-400",
 ];
 
 const techLogos = [
@@ -20,30 +29,13 @@ const techLogos = [
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
-  const [text, setText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          setText(currentRole.slice(0, text.length + 1));
-          if (text.length + 1 === currentRole.length) {
-            setTimeout(() => setIsDeleting(true), 1500);
-          }
-        } else {
-          setText(currentRole.slice(0, text.length - 1));
-          if (text.length === 0) {
-            setIsDeleting(false);
-            setRoleIndex((prev) => (prev + 1) % roles.length);
-          }
-        }
-      },
-      isDeleting ? 50 : 100
-    );
-    return () => clearTimeout(timeout);
-  }, [text, isDeleting, roleIndex]);
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
@@ -130,10 +122,20 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-xl md:text-2xl text-slate-400 mb-8 h-8"
+          className="text-xl md:text-2xl mb-8 h-10 flex items-center justify-center overflow-hidden"
         >
-          <span>{text}</span>
-          <span className="animate-pulse text-indigo-400">|</span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={roleIndex}
+              initial={{ y: 30, opacity: 0, filter: "blur(8px)" }}
+              animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+              exit={{ y: -30, opacity: 0, filter: "blur(8px)" }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className={`inline-block font-semibold bg-gradient-to-r ${roleColors[roleIndex]} bg-clip-text text-transparent`}
+            >
+              {roles[roleIndex]}
+            </motion.span>
+          </AnimatePresence>
         </motion.div>
 
         <motion.p

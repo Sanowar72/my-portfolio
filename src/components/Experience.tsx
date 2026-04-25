@@ -11,14 +11,15 @@ const experiences = [
     duration: "3+ years",
     icon: "🚀",
     highlights: [
-      "Developed InspectX from BikeScan shared codebase, enabling Inspection-as-a-Service — delivered a new product line with zero code duplication",
-      "Built InspectX Admin Dashboard for inspection management — approve/reject cases, raise queries, download media and inspection reports",
-      "Maintained multiple production apps (BikeScan, InspectX) from a single React Native codebase, ensuring feature parity and faster releases",
-      "Upgraded React Native 0.74 → 0.84 and React 18 → 19, reducing bundle size from 25 MB to 19 MB",
-      "Built full CI/CD pipeline with Fastlane — automated builds, code signing, and App Store / Play Store deployments",
-      "Implemented OTA updates to bypass app store review delays, enabling instant hotfixes",
-      "Boosted performance by 40% with Zustand + TanStack Query; reduced re-renders via useMemo, useCallback",
-      "Migrated UI to NativeWind (Tailwind CSS) and implemented RBAC securing data access for 500+ users",
+      "BikeScan — DriveX's core internal inspection app powering 8+ business verticals: NBFC loan inspections, C2B exchange evaluations, Technical Centre assessments, Quality Control checks, Pre-Delivery Inspections (PDI), Store PRI evaluations, Logistics verification, and Security Guard checks. When a vehicle passes PRI inspection, it is automatically listed on the DriveX website — eliminating manual data entry and reducing time-to-list from hours to minutes for 500+ daily active users.",
+      "InspectX (App + Web) — Built as an Inspection-as-a-Service product from BikeScan's shared codebase, enabling enterprise clients like TVS to run their own branded vehicle evaluation workflows. Opened a new B2B SaaS revenue stream for DriveX — allowing partners to onboard evaluators, define custom inspection parameters, and generate quality reports without building their own tools.",
+      "InspectX Dashboard — Web-based admin panel for InspectX clients to manage the full inspection lifecycle: review reports with photos and scores, approve or reject cases, raise queries to evaluators, and download media evidence. Replaced email/phone-based coordination — cutting average case resolution time and enabling operations teams to handle 3x more inspections without additional headcount.",
+      "Maintained BikeScan and InspectX from a single React Native codebase — any feature built once ships to both products, ensuring feature parity and reducing development effort by ~40%",
+      "Upgraded React Native 0.74 → 0.84 and React 18 → 19, reducing app bundle size from 25 MB to 19 MB — critical for field evaluators in low-network areas who need fast installs and updates",
+      "Built end-to-end CI/CD pipeline with Fastlane — automated builds, code signing, and App Store / Play Store deployments, cutting release cycles from days to hours",
+      "Implemented OTA (Over-The-Air) updates — enabling instant bug fixes and feature rollouts to field teams without waiting for app store review (typically 1–3 days)",
+      "Boosted app performance by 40% using Zustand for state management and TanStack Query for server-state caching; eliminated unnecessary re-renders with useMemo and useCallback",
+      "Migrated UI to NativeWind (Tailwind CSS for React Native) for consistent styling, and implemented Role-Based Access Control (RBAC) — ensuring evaluators, managers, and admins only see data relevant to their role across all verticals",
     ],
     tech: ["React Native", "React.js", "TypeScript", "Zustand", "TanStack Query", "Fastlane", "NativeWind"],
   },
@@ -30,9 +31,9 @@ const experiences = [
     duration: "6 months",
     icon: "💼",
     highlights: [
-      "Built ProcX admin dashboard in React.js + Material-UI with data aggregation from B2B/C2B sources",
-      "Implemented advanced filtering, export, and real-time updates",
-      "Optimized UI for large datasets; improved usability by 50% with dynamic EMI calculations",
+      "ProcX — Built a procurement analytics dashboard that aggregates vehicle sourcing data from B2B and C2B channels into a single view, helping procurement teams compare deals, track inventory pipelines, and make data-driven purchasing decisions",
+      "Implemented advanced filtering, bulk export, and real-time updates — improving procurement efficiency by 50%",
+      "Optimized UI for large datasets with dynamic EMI calculations, enabling faster deal evaluation for the sourcing team",
     ],
     tech: ["React.js", "Material-UI", "JavaScript", "REST APIs"],
   },
@@ -84,8 +85,9 @@ export default function Experience() {
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : {}}
                 transition={{ delay: 0.5 + i * 0.2, type: "spring" }}
-                className="absolute left-0 md:left-auto top-2 w-4 h-4 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 glow md:right-0"
-                style={i % 2 === 0 ? { right: "-8px", left: "auto" } : { left: "-8px" }}
+                className={`absolute top-2 w-4 h-4 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 glow -left-2 ${
+                  i % 2 === 0 ? "md:left-auto md:-right-2" : "md:-left-2"
+                }`}
               />
 
               <div className="glass rounded-2xl p-6 hover:border-indigo-500/30 transition-all duration-300">

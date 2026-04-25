@@ -59,7 +59,7 @@ export default function Footer() {
               <a href="https://github.com/Sanowar72" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-indigo-400 transition-colors text-sm">
                 GitHub
               </a>
-              <a href="https://linkedin.com/in/md-sanowar-alam" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-indigo-400 transition-colors text-sm">
+              <a href="https://www.linkedin.com/in/md-sanowar-alam-792251236/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-indigo-400 transition-colors text-sm">
                 LinkedIn
               </a>
               <a href="mailto:mdsanowaralam79@gmail.com" className="text-slate-500 hover:text-indigo-400 transition-colors text-sm">

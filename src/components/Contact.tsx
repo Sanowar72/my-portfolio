@@ -15,7 +15,7 @@ const socials = [
   },
   {
     name: "LinkedIn",
-    url: "https://linkedin.com/in/md-sanowar-alam",
+    url: "https://www.linkedin.com/in/md-sanowar-alam-792251236/",
     handle: "md-sanowar-alam",
     icon: (
       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

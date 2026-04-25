@@ -4,9 +4,9 @@ import { useRef, useState } from "react";
 
 const projects = [
   {
-    title: "InspectX — Inspection-as-a-Service",
+    title: "InspectX — Inspection-as-a-Service (App & Web)",
     description:
-      "Developed from BikeScan shared codebase, enabling a new SaaS product line with zero code duplication. Maintained multiple production apps from a single React Native codebase with feature parity.",
+      "A white-label vehicle inspection platform offered as a service to external enterprise clients like TVS. Enables third-party evaluators to assess two-wheelers on standardized quality parameters through a mobile app, while managers track and manage inspections via a web dashboard. Business outcome: Opened a new SaaS revenue stream for DriveX by monetizing its inspection technology — allowing partners to run their own inspection operations without building tools from scratch.",
     tech: ["React Native", "TypeScript", "Zustand", "TanStack Query", "Fastlane", "NativeWind"],
     color: "from-indigo-500 to-purple-500",
     icon: "🔍",
@@ -17,7 +17,7 @@ const projects = [
   {
     title: "InspectX Dashboard — Admin Panel",
     description:
-      "Admin dashboard for managing vehicle inspections — view inspection details, download media and reports, approve or reject cases, and raise queries. Streamlined the inspection review workflow for operations teams.",
+      "A centralized operations dashboard for InspectX clients to manage their vehicle inspection workflows end-to-end. Operations teams can review inspection reports, approve or reject cases, download media evidence, and raise queries — all from a single interface. Business outcome: Eliminated manual coordination between field evaluators and back-office teams, reducing case resolution time and enabling clients like TVS to scale inspections without adding operational headcount.",
     tech: ["React.js", "TypeScript", "REST APIs", "RBAC", "Material-UI"],
     color: "from-violet-500 to-indigo-500",
     icon: "📋",
@@ -26,9 +26,9 @@ const projects = [
     category: "production",
   },
   {
-    title: "BikeScan — Vehicle Inspection App",
+    title: "BikeScan — DriveX Internal Inspection App",
     description:
-      "Production mobile app for vehicle inspections. Upgraded RN 0.74→0.84, React 18→19, reduced bundle 25MB→19MB. Built CI/CD with Fastlane, OTA updates, and RBAC for 500+ users.",
+      "DriveX\u2019s core internal inspection app used by 500+ users across multiple business verticals — NBFC lending inspections, C2B exchange evaluations, Technical Centre assessments, QC checks, PDI (Pre-Delivery Inspection), Store PRI, Logistics, and Security Guard verifications. When a vehicle is inspected at PRI, it automatically gets listed on the DriveX website for sale. Business outcome: Digitized the entire vehicle intake pipeline — from procurement to listing — ensuring every vehicle is quality-checked before going live, reducing return rates and building buyer trust.",
     tech: ["React Native", "Fastlane", "JailMonkey", "OTA Updates", "RBAC"],
     color: "from-cyan-500 to-blue-500",
     icon: "🏍️",
@@ -39,7 +39,7 @@ const projects = [
   {
     title: "ProcX — Procurement Dashboard",
     description:
-      "Admin dashboard built with React.js + Material-UI featuring data aggregation from B2B/C2B sources, advanced filtering, export, and real-time updates. Improved usability by 50%.",
+      "A procurement analytics dashboard that aggregates vehicle sourcing data from B2B and C2B channels into a single view. Helps DriveX procurement teams compare deals across sources, track inventory pipelines, and make data-driven purchasing decisions. Business outcome: Improved procurement efficiency by 50% — enabling the team to process more vehicles faster with better visibility into sourcing channels, directly impacting inventory turnover and margins.",
     tech: ["React.js", "Material-UI", "JavaScript", "REST APIs"],
     color: "from-emerald-500 to-teal-500",
     icon: "📊",
@@ -50,7 +50,7 @@ const projects = [
   {
     title: "Student Management API",
     description:
-      "REST API using Node.js, Express.js, and MongoDB for full student administration — CRUD operations, JWT-based authentication, filtering and pagination.",
+      "A backend service for educational institutions to manage student records — handling enrollment, profile updates, and secure access. Provides authenticated endpoints so administrators can efficiently track and organize student data with filtering and pagination.",
     tech: ["Node.js", "Express.js", "MongoDB", "JWT"],
     color: "from-orange-500 to-red-500",
     icon: "🎓",
@@ -61,7 +61,7 @@ const projects = [
   {
     title: "Music Streaming API",
     description:
-      "Spring Boot REST API for managing music tracks with full CRUD, admin controls, and role-based authorization. Deployed on AWS EC2 for high availability.",
+      "A backend service for a music platform that lets users browse and stream tracks while giving admins control over the catalog. Supports role-based access so artists and admins can manage content independently. Deployed on AWS for reliable, always-on availability.",
     tech: ["Spring Boot", "JPA", "Hibernate", "MySQL", "AWS EC2"],
     color: "from-pink-500 to-rose-500",
     icon: "🎵",
@@ -72,7 +72,7 @@ const projects = [
   {
     title: "Restaurant Management API",
     description:
-      "Built with Spring Boot featuring RBAC, Swagger API docs, menu/order CRUD, and data validation for both mobile and web clients.",
+      "A backend system for restaurants to manage their digital menu, process customer orders, and control staff access through role-based permissions. Serves both mobile and web ordering interfaces with validated, well-documented API endpoints.",
     tech: ["Spring Boot", "RBAC", "Swagger", "REST APIs"],
     color: "from-amber-500 to-yellow-500",
     icon: "🍽️",
@@ -167,7 +167,7 @@ export default function Projects() {
                   {project.title}
                 </h3>
 
-                <p className="text-sm text-slate-400 mb-4 leading-relaxed line-clamp-3">
+                <p className="text-sm text-slate-400 mb-4 leading-relaxed">
                   {project.description}
                 </p>
 
