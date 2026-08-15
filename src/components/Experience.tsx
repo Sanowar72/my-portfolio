@@ -11,6 +11,8 @@ const experiences = [
     duration: "3+ years",
     icon: "🚀",
     highlights: [
+      "Monorepo Migration — Migrated the legacy ProcX codebase into a monorepo architecture, consolidating shared utilities, components, and configurations across multiple DriveX frontend projects. Reduced code duplication, simplified dependency management, and enabled faster cross-project feature development — cutting onboarding time for new developers and streamlining CI/CD pipelines across teams.",
+      "Rendering Engine — Built a backend config-driven rendering engine that dynamically generates UI screens and inspection flows based on server configurations. Eliminated the need for app releases to change form layouts, field validations, or workflow steps — enabling product and operations teams to modify inspection parameters on the fly without developer intervention, drastically reducing turnaround time for business changes.",
       "BikeScan — DriveX's core internal inspection app powering 8+ business verticals: NBFC loan inspections, C2B exchange evaluations, Technical Centre assessments, Quality Control checks, Pre-Delivery Inspections (PDI), Store PRI evaluations, Logistics verification, and Security Guard checks. When a vehicle passes PRI inspection, it is automatically listed on the DriveX website — eliminating manual data entry and reducing time-to-list from hours to minutes for 500+ daily active users.",
       "InspectX (App + Web) — Built as an Inspection-as-a-Service product from BikeScan's shared codebase, enabling enterprise clients like TVS to run their own branded vehicle evaluation workflows. Opened a new B2B SaaS revenue stream for DriveX — allowing partners to onboard evaluators, define custom inspection parameters, and generate quality reports without building their own tools.",
       "InspectX Dashboard — Web-based admin panel for InspectX clients to manage the full inspection lifecycle: review reports with photos and scores, approve or reject cases, raise queries to evaluators, and download media evidence. Replaced email/phone-based coordination — cutting average case resolution time and enabling operations teams to handle 3x more inspections without additional headcount.",
@@ -21,7 +23,15 @@ const experiences = [
       "Boosted app performance by 40% using Zustand for state management and TanStack Query for server-state caching; eliminated unnecessary re-renders with useMemo and useCallback",
       "Migrated UI to NativeWind (Tailwind CSS for React Native) for consistent styling, and implemented Role-Based Access Control (RBAC) — ensuring evaluators, managers, and admins only see data relevant to their role across all verticals",
     ],
-    tech: ["React Native", "React.js", "TypeScript", "Zustand", "TanStack Query", "Fastlane", "NativeWind"],
+    tech: [
+      "React Native",
+      "React.js",
+      "TypeScript",
+      "Zustand",
+      "TanStack Query",
+      "Fastlane",
+      "NativeWind",
+    ],
   },
   {
     role: "Frontend Developer",
@@ -93,7 +103,9 @@ export default function Experience() {
               <div className="glass rounded-2xl p-6 hover:border-indigo-500/30 transition-all duration-300">
                 <div className="flex flex-col gap-1 mb-4">
                   <div className="flex items-center gap-2 justify-between">
-                    <span className="text-sm text-indigo-400 font-medium">{exp.period}</span>
+                    <span className="text-sm text-indigo-400 font-medium">
+                      {exp.period}
+                    </span>
                     <span className="text-2xl">{exp.icon}</span>
                   </div>
                   <h3 className="text-xl font-bold text-white">{exp.role}</h3>
@@ -103,7 +115,9 @@ export default function Experience() {
                   <span className="text-xs text-slate-500">{exp.duration}</span>
                 </div>
 
-                <ul className={`space-y-2 mb-4 ${i % 2 === 0 ? "md:text-left" : ""}`}>
+                <ul
+                  className={`space-y-2 mb-4 ${i % 2 === 0 ? "md:text-left" : ""}`}
+                >
                   {exp.highlights.map((h, j) => (
                     <li key={j} className="text-sm text-slate-300 flex gap-2">
                       <span className="text-indigo-400 mt-1 shrink-0">▹</span>
@@ -112,7 +126,9 @@ export default function Experience() {
                   ))}
                 </ul>
 
-                <div className={`flex flex-wrap gap-2 ${i % 2 === 0 ? "md:justify-start" : ""}`}>
+                <div
+                  className={`flex flex-wrap gap-2 ${i % 2 === 0 ? "md:justify-start" : ""}`}
+                >
                   {exp.tech.map((t) => (
                     <span
                       key={t}
