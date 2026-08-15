@@ -8,30 +8,22 @@ import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ParticleBackground from "@/components/ParticleBackground";
-
-function SectionDivider() {
-  return <div className="section-divider max-w-4xl mx-auto" />;
-}
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 
 export default function Home() {
   return (
     <>
       <div className="noise-overlay" />
       <ParticleBackground />
+      <ScrollProgressBar />
       <Navbar />
       <main className="relative z-10">
         <Hero />
-        <SectionDivider />
         <About />
-        <SectionDivider />
         <Experience />
-        <SectionDivider />
         <Skills />
-        <SectionDivider />
         <Projects />
-        <SectionDivider />
         <Achievements />
-        <SectionDivider />
         <Contact />
       </main>
       <Footer />

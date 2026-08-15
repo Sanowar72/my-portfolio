@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
@@ -23,14 +23,34 @@ export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  return (
-    <section id="about" className="py-20 px-6 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="section-glow-left" />
-      <div className="section-glow-right" />
-      <div className="absolute inset-0 dot-pattern" />
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
 
-      <div className="max-w-6xl mx-auto relative" ref={ref}>
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const contentY = useTransform(scrollYProgress, [0, 0.5], [60, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+
+  return (
+    <section
+      id="about"
+      className="py-20 px-6 relative overflow-hidden"
+      ref={containerRef}
+    >
+      {/* Background decorations with parallax */}
+      <motion.div style={{ y: backgroundY }} className="absolute inset-0">
+        <div className="section-glow-left" />
+        <div className="section-glow-right" />
+        <div className="absolute inset-0 dot-pattern" />
+      </motion.div>
+
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="max-w-6xl mx-auto relative"
+        ref={ref}
+      >
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -103,18 +123,24 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             <p className="text-slate-300 text-lg leading-relaxed mb-5">
-              I&apos;m a <span className="text-indigo-400 font-semibold">Frontend Developer</span> based
-              in Bangalore with 3+ years of experience building scalable mobile and web applications.
+              I&apos;m a{" "}
+              <span className="text-indigo-400 font-semibold">
+                Frontend Developer
+              </span>{" "}
+              based in Bangalore with 3+ years of experience building scalable
+              mobile and web applications.
             </p>
             <p className="text-slate-400 leading-relaxed mb-5">
-              I specialize in React Native and React.js, with deep expertise in shared codebase
-              architecture, performance optimization, and CI/CD automation. I&apos;ve contributed to
-              products generating ₹20 Crore in business impact at Drivex Mobility.
+              I specialize in React Native and React.js, with deep expertise in
+              shared codebase architecture, performance optimization, and CI/CD
+              automation. I&apos;ve contributed to products generating ₹20 Crore
+              in business impact at Drivex Mobility.
             </p>
             <p className="text-slate-400 leading-relaxed mb-6">
-              I&apos;m passionate about writing clean, efficient code and building products that make a
-              real difference. When I&apos;m not coding, I&apos;m exploring new technologies and
-              contributing to the developer community.
+              I&apos;m passionate about writing clean, efficient code and
+              building products that make a real difference. When I&apos;m not
+              coding, I&apos;m exploring new technologies and contributing to
+              the developer community.
             </p>
 
             {/* Highlight chips */}
@@ -143,14 +169,18 @@ export default function About() {
                   className="glass rounded-xl p-4 text-center group hover:border-indigo-500/30 transition-all duration-300"
                 >
                   <div className="text-lg mb-1">{stat.icon}</div>
-                  <div className="text-2xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-xs text-slate-400 mt-1">{stat.label}</div>
+                  <div className="text-2xl font-bold gradient-text">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs text-slate-400 mt-1">
+                    {stat.label}
+                  </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

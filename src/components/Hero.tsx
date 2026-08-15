@@ -1,6 +1,11 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 
 const roles = [
   "Frontend Developer",
@@ -29,6 +34,16 @@ const techLogos = [
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -80]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,6 +54,7 @@ export default function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
@@ -96,7 +112,10 @@ export default function Hero() {
         </motion.div>
       ))}
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-16 md:pt-8">
+      <motion.div
+        style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
+        className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-16 md:pt-8"
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -114,8 +133,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
         >
-          Hi, I&apos;m{" "}
-          <span className="gradient-text">Md Sanowar Alam</span>
+          Hi, I&apos;m <span className="gradient-text">Md Sanowar Alam</span>
         </motion.h1>
 
         <motion.div
@@ -145,7 +163,8 @@ export default function Hero() {
           className="text-slate-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           3+ years of experience building scalable mobile and web applications
-          using React Native and React.js. Contributing to ₹20 Crore business impact.
+          using React Native and React.js. Contributing to ₹20 Crore business
+          impact.
         </motion.p>
 
         <motion.div
@@ -156,7 +175,10 @@ export default function Hero() {
         >
           <motion.a
             href="#contact"
-            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(99,102,241,0.4)" }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 0 30px rgba(99,102,241,0.4)",
+            }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-3 rounded-full font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 text-white transition-all"
           >
@@ -194,12 +216,14 @@ export default function Hero() {
             { value: "₹20Cr", label: "Business Impact" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="text-2xl font-bold gradient-text">{stat.value}</div>
+              <div className="text-2xl font-bold gradient-text">
+                {stat.value}
+              </div>
               <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
             </div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

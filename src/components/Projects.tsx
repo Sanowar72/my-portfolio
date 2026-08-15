@@ -1,5 +1,5 @@
 "use client";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 
 const projects = [
@@ -7,7 +7,14 @@ const projects = [
     title: "InspectX — Inspection-as-a-Service (App & Web)",
     description:
       "A white-label vehicle inspection platform offered as a service to external enterprise clients like TVS. Enables third-party evaluators to assess two-wheelers on standardized quality parameters through a mobile app, while managers track and manage inspections via a web dashboard. Business outcome: Opened a new SaaS revenue stream for DriveX by monetizing its inspection technology — allowing partners to run their own inspection operations without building tools from scratch.",
-    tech: ["React Native", "TypeScript", "Zustand", "TanStack Query", "Fastlane", "NativeWind"],
+    tech: [
+      "React Native",
+      "TypeScript",
+      "Zustand",
+      "TanStack Query",
+      "Fastlane",
+      "NativeWind",
+    ],
     color: "from-indigo-500 to-purple-500",
     icon: "🔍",
     link: "#",
@@ -93,21 +100,36 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const filtered = activeFilter === "all"
-    ? projects
-    : projects.filter((p) => p.category === activeFilter);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const headingY = useTransform(scrollYProgress, [0, 0.3], [50, 0]);
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+
+  const filtered =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-20 px-6 relative overflow-hidden">
+    <section
+      id="projects"
+      className="py-20 px-6 relative overflow-hidden"
+      ref={containerRef}
+    >
       {/* Background decorations */}
-      <div className="section-glow-right" />
-      <div className="absolute inset-0 grid-pattern" />
+      <motion.div style={{ y: backgroundY }} className="absolute inset-0">
+        <div className="section-glow-right" />
+        <div className="absolute inset-0 grid-pattern" />
+      </motion.div>
 
       <div className="max-w-6xl mx-auto relative" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          style={{ y: headingY, opacity: headingOpacity }}
           className="text-center mb-10"
         >
           <span className="text-sm text-indigo-400 font-medium tracking-wider uppercase mb-3 block">

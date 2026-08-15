@@ -1,5 +1,5 @@
 "use client";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const experiences = [
@@ -13,7 +13,7 @@ const experiences = [
     highlights: [
       "Monorepo Migration — Migrated the legacy ProcX codebase into a monorepo architecture, consolidating shared utilities, components, and configurations across multiple DriveX frontend projects. Reduced code duplication, simplified dependency management, and enabled faster cross-project feature development — cutting onboarding time for new developers and streamlining CI/CD pipelines across teams.",
       "Rendering Engine — Built a backend config-driven rendering engine that dynamically generates UI screens and inspection flows based on server configurations. Eliminated the need for app releases to change form layouts, field validations, or workflow steps — enabling product and operations teams to modify inspection parameters on the fly without developer intervention, drastically reducing turnaround time for business changes.",
-      "BikeScan — DriveX's core internal inspection app powering 8+ business verticals: NBFC loan inspections, C2B exchange evaluations, Technical Centre assessments, Quality Control checks, Pre-Delivery Inspections (PDI), Store PRI evaluations, Logistics verification, and Security Guard checks. When a vehicle passes PRI inspection, it is automatically listed on the DriveX website — eliminating manual data entry and reducing time-to-list from hours to minutes for 500+ daily active users.",
+      "BikeScan — DriveX's core internal inspection app powering 8+ business verticals: NBFC loan inspections, C2B exchange evaluations, Technical Centre assessments, Quality Control checks, Pre-Delivery Inspections (PDI), Store PRI evaluations, Logistics verification, and Security Guard checks. When a vehicle passes PRI inspection, it is automatically listed on the DriveX website — eliminating manual data entry and reducing time-to-list from hours to minutes for 500+ daily active users. Implemented MMKV for high-performance local data persistence — ensuring inspection progress is saved even when the app is killed or goes into background, so field evaluators never lose work in low-network conditions.",
       "InspectX (App + Web) — Built as an Inspection-as-a-Service product from BikeScan's shared codebase, enabling enterprise clients like TVS to run their own branded vehicle evaluation workflows. Opened a new B2B SaaS revenue stream for DriveX — allowing partners to onboard evaluators, define custom inspection parameters, and generate quality reports without building their own tools.",
       "InspectX Dashboard — Web-based admin panel for InspectX clients to manage the full inspection lifecycle: review reports with photos and scores, approve or reject cases, raise queries to evaluators, and download media evidence. Replaced email/phone-based coordination — cutting average case resolution time and enabling operations teams to handle 3x more inspections without additional headcount.",
       "Maintained BikeScan and InspectX from a single React Native codebase — any feature built once ships to both products, ensuring feature parity and reducing development effort by ~40%",
@@ -53,17 +53,31 @@ export default function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const headingY = useTransform(scrollYProgress, [0, 0.3], [40, 0]);
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+
   return (
-    <section id="experience" className="py-20 px-6 relative overflow-hidden">
+    <section
+      id="experience"
+      className="py-20 px-6 relative overflow-hidden"
+      ref={containerRef}
+    >
       {/* Background decorations */}
-      <div className="section-glow-right" />
-      <div className="absolute inset-0 grid-pattern" />
+      <motion.div style={{ y: backgroundY }} className="absolute inset-0">
+        <div className="section-glow-right" />
+        <div className="absolute inset-0 grid-pattern" />
+      </motion.div>
 
       <div className="max-w-5xl mx-auto relative" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          style={{ y: headingY, opacity: headingOpacity }}
           className="text-center mb-14"
         >
           <span className="text-sm text-indigo-400 font-medium tracking-wider uppercase mb-3 block">

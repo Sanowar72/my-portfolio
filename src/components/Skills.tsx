@@ -1,5 +1,5 @@
 "use client";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const skillCategories = [
@@ -7,13 +7,25 @@ const skillCategories = [
     title: "Mobile",
     icon: "📱",
     color: "from-indigo-500 to-purple-500",
-    skills: ["React Native", "NativeWind", "OTA Updates", "JailMonkey", "Android/iOS Build & Signing"],
+    skills: [
+      "React Native",
+      "NativeWind",
+      "OTA Updates",
+      "JailMonkey",
+      "Android/iOS Build & Signing",
+    ],
   },
   {
     title: "Frontend",
     icon: "🌐",
     color: "from-cyan-500 to-blue-500",
-    skills: ["React.js (v18/v19)", "JavaScript (ES6+)", "TypeScript", "Material UI", "Tailwind CSS"],
+    skills: [
+      "React.js (v18/v19)",
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "Material UI",
+      "Tailwind CSS",
+    ],
   },
   {
     title: "State & Data",
@@ -25,41 +37,82 @@ const skillCategories = [
     title: "DevOps / CI-CD",
     icon: "🚀",
     color: "from-orange-500 to-red-500",
-    skills: ["Fastlane", "Husky", "GitHub Actions", "iOS Provisioning", "Certificate Management"],
+    skills: [
+      "Fastlane",
+      "Husky",
+      "GitHub Actions",
+      "iOS Provisioning",
+      "Certificate Management",
+    ],
   },
   {
     title: "Testing",
     icon: "🧪",
     color: "from-pink-500 to-rose-500",
-    skills: ["Vitest", "React Testing Library", "Unit Testing", "Integration Testing"],
+    skills: [
+      "Vitest",
+      "React Testing Library",
+      "Unit Testing",
+      "Integration Testing",
+    ],
   },
   {
     title: "Backend",
     icon: "⚙️",
     color: "from-amber-500 to-yellow-500",
-    skills: ["Node.js", "Express.js", "Spring Boot", "REST APIs", "JWT", "MongoDB", "MySQL", "AWS EC2"],
+    skills: [
+      "Node.js",
+      "Express.js",
+      "Spring Boot",
+      "REST APIs",
+      "JWT",
+      "MongoDB",
+      "MySQL",
+      "AWS EC2",
+    ],
   },
 ];
 
 const tools = [
-  "VS Code", "Xcode", "Android Studio", "Postman", "Git", "Figma", "Jira", "Slack",
+  "VS Code",
+  "Xcode",
+  "Android Studio",
+  "Postman",
+  "Git",
+  "Figma",
+  "Jira",
+  "Slack",
 ];
 
 export default function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const headingY = useTransform(scrollYProgress, [0, 0.3], [50, 0]);
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+
   return (
-    <section id="skills" className="py-20 px-6 relative overflow-hidden">
+    <section
+      id="skills"
+      className="py-20 px-6 relative overflow-hidden"
+      ref={containerRef}
+    >
       {/* Background decorations */}
-      <div className="section-glow-left" />
-      <div className="absolute inset-0 dot-pattern" />
+      <motion.div style={{ y: backgroundY }} className="absolute inset-0">
+        <div className="section-glow-left" />
+        <div className="absolute inset-0 dot-pattern" />
+      </motion.div>
 
       <div className="max-w-6xl mx-auto relative" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          style={{ y: headingY, opacity: headingOpacity }}
           className="text-center mb-14"
         >
           <span className="text-sm text-indigo-400 font-medium tracking-wider uppercase mb-3 block">
@@ -88,7 +141,9 @@ export default function Skills() {
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-3xl">{cat.icon}</span>
                   <h3 className="text-lg font-bold text-white">{cat.title}</h3>
-                  <span className="ml-auto text-xs text-slate-500">{cat.skills.length} skills</span>
+                  <span className="ml-auto text-xs text-slate-500">
+                    {cat.skills.length} skills
+                  </span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {cat.skills.map((skill, j) => (
