@@ -11,6 +11,7 @@ const experiences = [
     duration: "3+ years",
     icon: "🚀",
     highlights: [
+      "Pine Labs POS Integration — Integrated Pine Labs POS machine into the BikeScan app for the store vehicle selling journey, enabling customers to make payments directly at DriveX stores during vehicle purchase. Built a polling mechanism to reliably track and confirm real-time transaction status — replacing manual payment tracking and giving store staff instant confirmation of successful transactions.",
       "Monorepo Migration — Migrated the legacy ProcX codebase into a monorepo architecture, consolidating shared utilities, components, and configurations across multiple DriveX frontend projects. Reduced code duplication, simplified dependency management, and enabled faster cross-project feature development — cutting onboarding time for new developers and streamlining CI/CD pipelines across teams.",
       "Rendering Engine — Built a backend config-driven rendering engine that dynamically generates UI screens and inspection flows based on server configurations. Eliminated the need for app releases to change form layouts, field validations, or workflow steps — enabling product and operations teams to modify inspection parameters on the fly without developer intervention, drastically reducing turnaround time for business changes.",
       "BikeScan — DriveX's core internal inspection app powering 8+ business verticals: NBFC loan inspections, C2B exchange evaluations, Technical Centre assessments, Quality Control checks, Pre-Delivery Inspections (PDI), Store PRI evaluations, Logistics verification, and Security Guard checks. When a vehicle passes PRI inspection, it is automatically listed on the DriveX website — eliminating manual data entry and reducing time-to-list from hours to minutes for 500+ daily active users. Implemented MMKV for high-performance local data persistence — ensuring inspection progress is saved even when the app is killed or goes into background, so field evaluators never lose work in low-network conditions.",
@@ -22,6 +23,7 @@ const experiences = [
       "Implemented OTA (Over-The-Air) updates — enabling instant bug fixes and feature rollouts to field teams without waiting for app store review (typically 1–3 days)",
       "Boosted app performance by 40% using Zustand for state management and TanStack Query for server-state caching; eliminated unnecessary re-renders with useMemo and useCallback",
       "Migrated UI to NativeWind (Tailwind CSS for React Native) for consistent styling, and implemented Role-Based Access Control (RBAC) — ensuring evaluators, managers, and admins only see data relevant to their role across all verticals",
+      "Detox E2E Testing — Implemented Detox for end-to-end testing of React Native apps, automating critical user flows (inspection submission, payment, login) to catch regressions before releases — improving release confidence and reducing QA cycles",
     ],
     tech: [
       "React Native",
